@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/mycss.css" rel="stylesheet" type="text/css">
+ 
+</head>
+<body onload="mostrarEnCarrusel('05');">
+  <div id="producto"class="row container-fluid">
+    <div id="producto-cabeza" class="pt-4 bg-success text-white justify-content-center">
+      <h2 class="">Olea europea</h2>
+      <select id="producto-variedad">
+        <option value="l" >lola</option>
+      </select>
+    </div><!-- div fin producto-cabeza -->
+    <div id="producto-fotos" class="">
+      <div class="row">
+            <div >
+                <img src="./imgs/local/IMG-05.jpg" id="galeriaImg" alt="Olive Farm" class="imagenScala80" >            
+            </div>            
+          </div><!-- row fin de mostrar -->
+            <!-- seccion de thumbs -->
+        <div id="thumbsSeccion" class="row">
+            <picture><img src="./imgs/local/IMG-05.jpg" alt="ads" class="imagenScala20 active" id="05" onclick="mostrarEnCarrusel('05');"></picture>
+            <picture><img src="imgs/IMG-06.jpg" alt="asda" class="imagenScala20" id="06" onclick="mostrarEnCarrusel('06');"></picture>
+            <picture></picture><img src="imgs/IMG-10.jpg" alt="asda" class="imagenScala20" id="10" onclick="mostrarEnCarrusel('10');"></picture>
+        </div>
+        <!-- fin de seccion de thumbs -->
+    </div><!-- div fin producto-fotos -->
+    <div id="producto-oferta" class="container">
+      <div class="row"> 
+        <section id="producto-oferta-ofrece" class="pt-4 col-4">
+        <div class="bg-warning ">
+          Servicio de..
+        </div>
+        <div>
+          Muy bonito..
+        </div>
+        </section><!-- section fin producto-oferta-ofrece -->
+        <section id="producto-oferta-agro" class="pt-4 col-4">
+          <div class="bg-warning ">
+            Servicio de..
+          </div>
+          <div>
+            Muy bonito..
+          </div>
+          </section><!-- section fin producto-oferta-agro -->
+          <section id="producto-oferta-morfo" class="pt-4 col-4">
+            <div class="bg-success ">
+              Servicio de..
+            </div>
+            <div>
+              Muy bonito..
+            </div>
+            </section><!-- section fin producto-oferta-morfo -->
+      </div>
+    </div><!-- div fin producto-oferta -->
+  </div><!-- div fin producto -->
+  
+    <section class="p-4 d-flex justify-content-center w-100">
+        <div class="ecommerce-gallery" id="galeria" data-mdb-ecommerce-gallery-init="">
+          <div class="row">
+            <div >
+                <img src="imgs/IMG-05.jpg" id="galeriaImg" alt="Olive Farm" class="imagenScala80" >            
+            </div>            
+          </div><!-- row fin de mostrar -->
+            <!-- seccion de thumbs -->
+        <div id="thumbsSeccion" class="row">
+            <picture><img src="imgs/IMG-05.jpg" alt="ads" class="imagenScala20 active" id="05" onclick="mostrarEnCarrusel('05');"></picture>
+            <picture><img src="imgs/IMG-06.jpg" alt="asda" class="imagenScala20" id="06" onclick="mostrarEnCarrusel('06');"></picture>
+            <picture></picture><img src="imgs/IMG-10.jpg" alt="asda" class="imagenScala20" id="10" onclick="mostrarEnCarrusel('10');"></picture>
+        </div>
+        <!-- fin de seccion de thumbs -->
+          </div>
+        </div>
+      </section>
+</body>
+<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+<script>
+    let imgActiva="05";
+    function mostrarEnCarrusel(params) {
+      document.getElementById("galeriaImg").src="imgs/IMG-"+params+".jpg" ;
+      let thumbsI=document.getElementsByTagName("picture");
+      for (const  elt of thumbsI)  {
+        let laimg=elt.firstChild
+        laimg.class=laimg.id=params?"imagenScala20 active":"imagenScala20"
+      }
+    }
+</script>
+</html>
