@@ -1,0 +1,25 @@
+VALDES ARMAS – CARPETA FINAL DE LA WEB
+
+1) Para ver la página en tu computadora:
+   - Descomprime este ZIP completo.
+   - Entra a la carpeta "valdes-armas-web-final".
+   - Abre el archivo index.html con Google Chrome, Microsoft Edge o Firefox.
+   - No lo abras con Word.
+
+2) Para publicar en GitHub Pages:
+   - Sube TODO el contenido de esta carpeta al repositorio.
+   - El archivo index.html debe quedar en la raíz del repositorio.
+   - Espera 1 a 3 minutos y actualiza la URL pública.
+
+3) Cambios incluidos:
+   - Marca corregida: Valdes Armas sin tilde.
+   - Submarca: Longevidad Plena.
+   - Enlaces de Instagram, Facebook y YouTube incluidos.
+   - Logo actualizado sin tilde.
+   - Secciones: Inicio, Quiénes Somos, Investigación, EcoBienestar, Biblioteca Científica, Marketplace y Contacto.
+   - Equipo fundador incluido: Reinaldo, Bertha y Lisandra.
+
+4) Redes oficiales:
+   Instagram: https://www.instagram.com/ecobienestarvaldesarmas/
+   Facebook: https://www.facebook.com/profile.php?id=61573361642640
+   YouTube: https://www.youtube.com/@valdesarmasEcobienestar
