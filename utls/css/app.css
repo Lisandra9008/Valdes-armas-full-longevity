@@ -1,0 +1,94 @@
+/* ============================================================
+   VALDES ARMAS — Sistema de diseño de la app del Marketplace
+   (login, catálogo dinámico, panel vendedor, chat, admin)
+   ============================================================ */
+:root{
+  --olive:#244f2a; --olive-2:#3f6f38; --sage:#e9f2df; --cream:#fbf7ef;
+  --gold:#b58a3a; --ink:#1f2a21; --muted:#607066; --danger:#b33a3a;
+  --white:#fff; --border:rgba(36,79,42,.14);
+  --radius:18px; --radius-sm:12px;
+  --shadow:0 10px 35px rgba(31,42,33,.08);
+}
+*{box-sizing:border-box}
+.app-shell{max-width:1180px;width:92%;margin:auto;padding:36px 0 70px}
+
+/* Estado vacío / carga */
+.app-loading, .app-empty{text-align:center;padding:60px 20px;color:var(--muted)}
+.app-loading::before{content:"⏳ ";}
+
+/* Alertas */
+.alert{padding:14px 18px;border-radius:var(--radius-sm);font-size:14.5px;margin-bottom:18px}
+.alert-error{background:#fdecec;color:var(--danger);border:1px solid #f3c9c9}
+.alert-ok{background:var(--sage);color:var(--olive);border:1px solid rgba(36,79,42,.2)}
+
+/* Botones */
+.app-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:700;font-size:14.5px;border:none;cursor:pointer;transition:.2s}
+.app-btn.primary{background:var(--olive);color:#fff}
+.app-btn.primary:hover{background:var(--olive-2)}
+.app-btn.secondary{background:#fff;border:1.5px solid var(--olive);color:var(--olive)}
+.app-btn.danger{background:#fff;border:1.5px solid var(--danger);color:var(--danger)}
+.app-btn:disabled{opacity:.6;cursor:not-allowed}
+.app-btn.block{width:100%}
+
+/* Formularios (login, registro, publicar producto) */
+.auth-card{max-width:420px;margin:40px auto;background:#fff;border-radius:26px;padding:36px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.auth-card h1{font-family:Georgia,serif;color:var(--olive);font-size:28px;margin:0 0 6px}
+.auth-card p.sub{color:var(--muted);margin:0 0 24px;font-size:14.5px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.field input, .field textarea, .field select{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:15px;font-family:inherit}
+.field textarea{resize:vertical;min-height:100px}
+.auth-switch{text-align:center;margin-top:18px;font-size:14px;color:var(--muted)}
+.auth-switch a{color:var(--olive);font-weight:700}
+
+/* Navbar con sesión */
+.app-nav-user{display:flex;align-items:center;gap:10px;font-size:14px}
+.app-nav-user .badge{background:var(--sage);color:var(--olive);padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800}
+
+/* Grilla de productos dinámica */
+.app-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:24px}
+.app-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:.2s}
+.app-card:hover{transform:translateY(-4px)}
+.app-card .thumb{width:100%;height:190px;object-fit:cover;background:var(--sage)}
+.app-card .body{padding:18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.app-card .tag{align-self:flex-start;background:var(--sage);color:var(--olive);font-size:11.5px;font-weight:800;padding:4px 10px;border-radius:999px}
+.app-card h3{margin:2px 0 0;font-family:Georgia,serif;color:var(--olive);font-size:18px}
+.app-card .desc{color:#4a564c;font-size:13.5px;flex:1}
+.app-card .foot{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
+.app-card .price{font-weight:800;color:var(--gold)}
+.app-card .fav-btn{background:none;border:none;font-size:20px;cursor:pointer;line-height:1}
+
+/* Ficha de producto */
+.product-detail{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:20px}
+.product-detail .gallery img{width:100%;border-radius:var(--radius);box-shadow:var(--shadow)}
+.product-detail .info h1{font-family:Georgia,serif;color:var(--olive);font-size:32px;margin:0 0 8px}
+.product-detail .info .price{font-size:26px;color:var(--gold);font-weight:800;margin:10px 0}
+@media(max-width:800px){.product-detail{grid-template-columns:1fr}}
+
+/* Panel vendedor / admin: tablas */
+.app-table-wrap{overflow-x:auto;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border)}
+.app-table{width:100%;border-collapse:collapse;font-size:14.5px}
+.app-table th{background:var(--sage);color:var(--olive);text-align:left;padding:14px;font-weight:800}
+.app-table td{padding:14px;border-top:1px solid var(--border)}
+.app-table img{width:50px;height:50px;object-fit:cover;border-radius:8px}
+.status-pill{padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800}
+.status-pill.si{background:var(--sage);color:var(--olive)}
+.status-pill.no{background:#fdecec;color:var(--danger)}
+
+/* Chat */
+.chat-shell{display:grid;grid-template-columns:300px 1fr;gap:0;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);overflow:hidden;height:70vh}
+.chat-list{border-right:1px solid var(--border);overflow-y:auto}
+.chat-list-item{padding:16px;border-bottom:1px solid var(--border);cursor:pointer}
+.chat-list-item:hover, .chat-list-item.active{background:var(--sage)}
+.chat-window{display:flex;flex-direction:column;height:100%}
+.chat-messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:10px}
+.chat-bubble{max-width:70%;padding:10px 16px;border-radius:16px;font-size:14.5px}
+.chat-bubble.mine{align-self:flex-end;background:var(--olive);color:#fff}
+.chat-bubble.theirs{align-self:flex-start;background:var(--sage);color:var(--ink)}
+.chat-input-row{display:flex;gap:10px;padding:16px;border-top:1px solid var(--border)}
+.chat-input-row input{flex:1;padding:12px 16px;border-radius:999px;border:1px solid var(--border)}
+
+@media(max-width:768px){
+  .chat-shell{grid-template-columns:1fr;height:auto}
+  .chat-list{max-height:200px}
+}

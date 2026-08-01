@@ -1,0 +1,52 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Crear cuenta | Valdes Armas</title><link rel="icon" href="utls/imgs/valdes-armas-logo.jpeg"><link href="utls/css/valdesarmas.css" rel="stylesheet"><link href="utls/css/app.css" rel="stylesheet"></head><body>
+<div class="topbar"><div class="container-va nav"><a class="brand" href="index.html"><img src="utls/imgs/valdes-armas-logo.jpeg" alt="Valdes Armas"><span>VALDES ARMAS<small>LONGEVIDAD PLENA</small></span></a><div class="links"><a href="index.html">Inicio</a><a href="marketplace.html">Marketplace</a></div></div></div>
+
+<div class="app-shell">
+  <div class="auth-card">
+    <h1>Crear cuenta</h1>
+    <p class="sub">Registrate para guardar favoritos y chatear con los vendedores.</p>
+    <div class="alert alert-error" id="reg-error" style="display:none"></div>
+    <div class="alert alert-ok" id="reg-ok" style="display:none"></div>
+    <form id="reg-form">
+      <div class="field"><label for="nombre">Nombre</label><input type="text" id="nombre" required></div>
+      <div class="field"><label for="email">Email</label><input type="email" id="email" required></div>
+      <div class="field"><label for="password">Contraseña</label><input type="password" id="password" minlength="6" required></div>
+      <button type="submit" class="app-btn primary block" id="reg-btn">Crear cuenta</button>
+    </form>
+    <p class="auth-switch">¿Ya tenés cuenta? <a href="login.html">Iniciá sesión</a></p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="utls/js/supabase-config.js"></script>
+<script>
+document.getElementById('reg-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('reg-btn');
+  const errorBox = document.getElementById('reg-error');
+  const okBox = document.getElementById('reg-ok');
+  errorBox.style.display = 'none'; okBox.style.display = 'none';
+  btn.disabled = true; btn.textContent = 'Creando cuenta...';
+
+  const nombre = document.getElementById('nombre').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  const { error } = await supabaseClient.auth.signUp({
+    email, password,
+    options: { data: { nombre } }
+  });
+
+  btn.disabled = false; btn.textContent = 'Crear cuenta';
+
+  if (error) {
+    errorBox.textContent = error.message;
+    errorBox.style.display = 'block';
+    return;
+  }
+  okBox.textContent = 'Cuenta creada. Revisá tu email para confirmar y después iniciá sesión.';
+  okBox.style.display = 'block';
+  document.getElementById('reg-form').reset();
+});
+</script>
+</body></html>
