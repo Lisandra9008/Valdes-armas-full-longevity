@@ -1,37 +1,78 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Marketplace | Valdes Armas</title><meta name="description" content="Catálogo de productos y experiencias de Valdes Armas: aceite de oliva, plantas de olivo, productos artesanales, visitas a la finca y publicaciones."><link rel="icon" href="utls/imgs/valdes-armas-logo.jpeg"><link href="utls/css/valdesarmas.css" rel="stylesheet"><link href="utls/css/marketplace.css" rel="stylesheet"><link href="utls/css/app.css" rel="stylesheet"></head><body>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title data-i18n="page_title">Marketplace | Valdes Armas</title><meta name="description" content="Catálogo de productos y experiencias de Valdes Armas: aceite de oliva, plantas de olivo, productos artesanales, visitas a la finca y publicaciones." data-i18n-content="page_desc"><link rel="icon" href="utls/imgs/valdes-armas-logo.jpeg"><link href="utls/css/valdesarmas.css" rel="stylesheet"><link href="utls/css/marketplace.css" rel="stylesheet"><link href="utls/css/app.css" rel="stylesheet"></head><body>
 
-<div class="topbar"><div class="container-va nav"><a class="brand" href="index.html"><img src="utls/imgs/valdes-armas-logo.jpeg" alt="Valdes Armas"><span>VALDES ARMAS<small>LONGEVIDAD PLENA</small></span></a><div class="links"><a href="index.html">Inicio</a><a href="quienes-somos.html">Quiénes Somos</a><a href="investigacion.html">Investigación</a><a href="ecobienestar.html">EcoBienestar</a><a href="publicaciones.html">Biblioteca Científica</a><a href="marketplace.html" class="active">Marketplace</a><a href="contacto.html">Contacto</a></div><div id="nav-auth" class="app-nav-user"><a href="login.html" class="app-btn secondary" style="padding:8px 16px;font-size:13px">Iniciar sesión</a></div></div></div>
+<div class="topbar"><div class="container-va nav"><a class="brand" href="index.html"><img src="utls/imgs/valdes-armas-logo.jpeg" alt="Valdes Armas"><span>VALDES ARMAS<small>LONGEVIDAD PLENA</small></span></a><div class="links"><a href="index.html" data-i18n="nav_home">Inicio</a><a href="quienes-somos.html" data-i18n="nav_about">Quiénes Somos</a><a href="investigacion.html" data-i18n="nav_research">Investigación</a><a href="ecobienestar.html" data-i18n="nav_model">EcoBienestar</a><a href="publicaciones.html" data-i18n="nav_pubs">Biblioteca Científica</a><a href="marketplace.html" class="active" data-i18n="nav_market">Marketplace</a><a href="contacto.html" data-i18n="nav_contact">Contacto</a></div><div style="display:flex;align-items:center"><div id="nav-auth" class="app-nav-user"><a href="login.html" class="app-btn secondary" style="padding:8px 16px;font-size:13px" data-i18n="nav_login">Iniciar sesión</a></div><div class="lang-toggle"><span data-lang="es">ES</span><span data-lang="en">EN</span></div></div></div></div>
 
-<section class="page-hero"><div class="container-va"><h1>Marketplace</h1><p class="lead">Productos y experiencias con propósito: aceite de oliva, plantas, sabores artesanales, visitas a la finca y publicaciones.</p></div></section>
+<section class="page-hero"><div class="container-va"><h1 data-i18n="hero_title">Marketplace</h1><p class="lead" data-i18n="hero_lead">Productos y experiencias con propósito: aceite de oliva, plantas, sabores artesanales, visitas a la finca y publicaciones.</p></div></section>
 
 <div class="app-shell">
 
 <div class="mkt-toolbar">
-  <div class="mkt-search"><span aria-hidden="true">🔍</span><input id="app-search" type="search" placeholder="Buscar productos, plantas, libros..." aria-label="Buscar en el marketplace"></div>
+  <div class="mkt-search"><span aria-hidden="true">🔍</span><input id="app-search" type="search" placeholder="Buscar productos, plantas, libros..." aria-label="Buscar en el marketplace" data-i18n-placeholder="search_placeholder"></div>
   <div class="mkt-cats" role="tablist" aria-label="Filtrar por categoría">
-    <button class="mkt-cat-btn active" data-cat="todas">Todas</button>
-    <button class="mkt-cat-btn" data-cat="aceite">Aceite de oliva</button>
-    <button class="mkt-cat-btn" data-cat="plantas">Plantas de olivo</button>
-    <button class="mkt-cat-btn" data-cat="artesanal">Productos artesanales</button>
-    <button class="mkt-cat-btn" data-cat="experiencias">Experiencias y turismo</button>
-    <button class="mkt-cat-btn" data-cat="publicaciones">Publicaciones y juegos</button>
+    <button class="mkt-cat-btn active" data-cat="todas" data-i18n="cat_todas">Todas</button>
+    <button class="mkt-cat-btn" data-cat="aceite" data-i18n="cat_aceite">Aceite de oliva</button>
+    <button class="mkt-cat-btn" data-cat="plantas" data-i18n="cat_plantas">Plantas de olivo</button>
+    <button class="mkt-cat-btn" data-cat="artesanal" data-i18n="cat_artesanal">Productos artesanales</button>
+    <button class="mkt-cat-btn" data-cat="experiencias" data-i18n="cat_experiencias">Experiencias y turismo</button>
+    <button class="mkt-cat-btn" data-cat="publicaciones" data-i18n="cat_publicaciones">Publicaciones y juegos</button>
   </div>
 </div>
 <p class="mkt-count" id="app-count"></p>
 
 <div class="alert alert-error" id="app-error" style="display:none"></div>
-<p class="app-loading" id="app-loading">Cargando productos…</p>
-<p class="app-empty" id="app-empty" style="display:none">No encontramos productos con esa búsqueda. Probá con otra palabra o categoría.</p>
+<p class="app-loading" id="app-loading" data-i18n="loading_text">Cargando productos…</p>
+<p class="app-empty" id="app-empty" style="display:none" data-i18n="empty_text">No encontramos productos con esa búsqueda. Probá con otra palabra o categoría.</p>
 
 <div class="app-grid" id="app-grid"></div>
 
-<div class="mkt-publish"><div><h3>¿Sos parte del equipo y querés publicar un producto?</h3><p>Iniciá sesión con tu cuenta de vendedor para cargar tus productos con fotos, precio y descripción.</p></div><a class="app-btn primary" href="login.html">Iniciar sesión para publicar</a></div>
+<div class="mkt-publish"><div><h3 data-i18n="publish_title">¿Sos parte del equipo y querés publicar un producto?</h3><p data-i18n="publish_text">Iniciá sesión con tu cuenta de vendedor para cargar tus productos con fotos, precio y descripción.</p></div><a class="app-btn primary" href="login.html" data-i18n="publish_btn">Iniciar sesión para publicar</a></div>
 
 </div>
 
-<footer class="footer"><div class="container-va footer-grid"><div><h2>Valdes Armas</h2><p>Centro de Investigación en EcoBienestar para el Adulto Mayor. Naturaleza, ciencia, mascotas y olivos para una vida plena.</p><div class="social-mini"><a href="https://www.instagram.com/ecobienestarvaldesarmas/" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a><a href="https://www.facebook.com/profile.php?id=61573361642640" target="_blank" rel="noopener" aria-label="Facebook">Facebook</a><a href="https://www.youtube.com/@valdesarmasEcobienestar" target="_blank" rel="noopener" aria-label="YouTube">YouTube</a><a href="#" aria-label="LinkedIn">LinkedIn</a></div></div><div><p><strong>Ubicación:</strong> Florida, EE. UU.</p><p><strong>Contacto institucional:</strong> info@valdesarmas.org</p><p><strong>© Valdes Armas Longevidad Plena</strong></p></div></div></footer>
+<footer class="footer"><div class="container-va footer-grid"><div><h2>Valdes Armas</h2><p data-i18n="footer_desc">Centro de Investigación en EcoBienestar para el Adulto Mayor. Naturaleza, ciencia, mascotas y olivos para una vida plena.</p><div class="social-mini"><a href="https://www.instagram.com/ecobienestarvaldesarmas/" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a><a href="https://www.facebook.com/profile.php?id=61573361642640" target="_blank" rel="noopener" aria-label="Facebook">Facebook</a><a href="https://www.youtube.com/@valdesarmasEcobienestar" target="_blank" rel="noopener" aria-label="YouTube">YouTube</a><a href="#" aria-label="LinkedIn">LinkedIn</a></div></div><div><p><strong data-i18n="footer_location_label">Ubicación:</strong> Florida, EE. UU.</p><p><strong data-i18n="footer_contact_label">Contacto institucional:</strong> info@valdesarmas.org</p><p><strong>© Valdes Armas Longevidad Plena</strong></p></div></div></footer>
 
+<script>
+window.I18N = {
+  es: {
+    page_title: "Marketplace | Valdes Armas",
+    page_desc: "Catálogo de productos y experiencias de Valdes Armas: aceite de oliva, plantas de olivo, productos artesanales, visitas a la finca y publicaciones.",
+    nav_home: "Inicio", nav_about: "Quiénes Somos", nav_research: "Investigación", nav_model: "EcoBienestar",
+    nav_pubs: "Biblioteca Científica", nav_market: "Marketplace", nav_contact: "Contacto", nav_login: "Iniciar sesión",
+    hero_title: "Marketplace",
+    hero_lead: "Productos y experiencias con propósito: aceite de oliva, plantas, sabores artesanales, visitas a la finca y publicaciones.",
+    search_placeholder: "Buscar productos, plantas, libros...",
+    cat_todas: "Todas", cat_aceite: "Aceite de oliva", cat_plantas: "Plantas de olivo",
+    cat_artesanal: "Productos artesanales", cat_experiencias: "Experiencias y turismo", cat_publicaciones: "Publicaciones y juegos",
+    loading_text: "Cargando productos…",
+    empty_text: "No encontramos productos con esa búsqueda. Probá con otra palabra o categoría.",
+    publish_title: "¿Sos parte del equipo y querés publicar un producto?",
+    publish_text: "Iniciá sesión con tu cuenta de vendedor para cargar tus productos con fotos, precio y descripción.",
+    publish_btn: "Iniciar sesión para publicar",
+    footer_desc: "Centro de Investigación en EcoBienestar para el Adulto Mayor. Naturaleza, ciencia, mascotas y olivos para una vida plena.",
+    footer_location_label: "Ubicación:", footer_contact_label: "Contacto institucional:"
+  },
+  en: {
+    page_title: "Marketplace | Valdes Armas",
+    page_desc: "Catalog of Valdes Armas products and experiences: olive oil, olive plants, artisanal products, farm visits, and publications.",
+    nav_home: "Home", nav_about: "About Us", nav_research: "Research", nav_model: "EcoWellness",
+    nav_pubs: "Scientific Library", nav_market: "Marketplace", nav_contact: "Contact", nav_login: "Log in",
+    hero_title: "Marketplace",
+    hero_lead: "Products and experiences with purpose: olive oil, plants, artisanal flavors, farm visits, and publications.",
+    search_placeholder: "Search products, plants, books...",
+    cat_todas: "All", cat_aceite: "Olive oil", cat_plantas: "Olive plants",
+    cat_artesanal: "Artisanal products", cat_experiencias: "Experiences & tourism", cat_publicaciones: "Publications & games",
+    loading_text: "Loading products…",
+    empty_text: "We couldn't find products matching that search. Try another word or category.",
+    publish_title: "Are you part of the team and want to list a product?",
+    publish_text: "Log in with your seller account to upload your products with photos, price, and description.",
+    publish_btn: "Log in to publish",
+    footer_desc: "Research Center for Eco-Well-being for Older Adults. Nature, science, pets, and olive trees for a fulfilling life.",
+    footer_location_label: "Location:", footer_contact_label: "Institutional contact:"
+  }
+};
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="utls/js/supabase-config.js"></script>
+<script src="utls/js/i18n.js"></script>
 <script src="utls/js/marketplace-app.js"></script>
 </body></html>

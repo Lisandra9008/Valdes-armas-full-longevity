@@ -2,12 +2,13 @@
 // MARKETPLACE — Catálogo dinámico (lee productos desde Supabase)
 // ============================================================
 const CATEGORIAS = {
-  aceite: 'Aceite de oliva',
-  plantas: 'Plantas de olivo',
-  artesanal: 'Producto artesanal',
-  experiencias: 'Experiencia',
-  publicaciones: 'Publicación'
+  es: { aceite: 'Aceite de oliva', plantas: 'Plantas de olivo', artesanal: 'Producto artesanal', experiencias: 'Experiencia', publicaciones: 'Publicación' },
+  en: { aceite: 'Olive oil', plantas: 'Olive plants', artesanal: 'Artisanal product', experiencias: 'Experience', publicaciones: 'Publication' }
 };
+function catLabel(cat) {
+  const lang = (window.VA_I18N && window.VA_I18N.getLang()) || 'es';
+  return CATEGORIAS[lang][cat] || cat;
+}
 
 let TODOS_LOS_PRODUCTOS = [];
 let activeCat = 'todas';
@@ -29,6 +30,9 @@ function renderProductos(lista) {
   }
   empty.style.display = 'none';
 
+  const lang = (window.VA_I18N && window.VA_I18N.getLang()) || 'es';
+  const priceLabel = lang === 'en' ? 'Ask for price' : 'Consultar precio';
+
   lista.forEach(p => {
     const card = document.createElement('a');
     card.className = 'app-card';
@@ -36,11 +40,11 @@ function renderProductos(lista) {
     card.innerHTML = `
       <img class="thumb" src="${urlImagen(p.imagenes && p.imagenes[0])}" alt="${p.nombre}" loading="lazy">
       <div class="body">
-        <span class="tag">${CATEGORIAS[p.categoria] || p.categoria}</span>
+        <span class="tag">${catLabel(p.categoria)}</span>
         <h3>${p.nombre}</h3>
         <p class="desc">${p.descripcion || ''}</p>
         <div class="foot">
-          <span class="price">${p.precio ? 'USD ' + p.precio : 'Consultar precio'}</span>
+          <span class="price">${p.precio ? 'USD ' + p.precio : priceLabel}</span>
         </div>
       </div>`;
     grid.appendChild(card);
@@ -57,8 +61,14 @@ function aplicarFiltros() {
     return matchCat && matchTerm;
   });
   renderProductos(filtrados);
-  document.getElementById('app-count').textContent =
-    filtrados.length + (filtrados.length === 1 ? ' producto encontrado' : ' productos encontrados');
+  const lang = (window.VA_I18N && window.VA_I18N.getLang()) || 'es';
+  if (lang === 'en') {
+    document.getElementById('app-count').textContent =
+      filtrados.length + (filtrados.length === 1 ? ' product found' : ' products found');
+  } else {
+    document.getElementById('app-count').textContent =
+      filtrados.length + (filtrados.length === 1 ? ' producto encontrado' : ' productos encontrados');
+  }
 }
 
 async function cargarProductos() {
@@ -98,4 +108,5 @@ document.addEventListener('DOMContentLoaded', () => {
       aplicarFiltros();
     });
   });
+  document.addEventListener('langchange', aplicarFiltros);
 });

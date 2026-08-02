@@ -1,29 +1,50 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Iniciar sesión | Valdes Armas</title><link rel="icon" href="utls/imgs/valdes-armas-logo.jpeg"><link href="utls/css/valdesarmas.css" rel="stylesheet"><link href="utls/css/app.css" rel="stylesheet"></head><body>
-<div class="topbar"><div class="container-va nav"><a class="brand" href="index.html"><img src="utls/imgs/valdes-armas-logo.jpeg" alt="Valdes Armas"><span>VALDES ARMAS<small>LONGEVIDAD PLENA</small></span></a><div class="links"><a href="index.html">Inicio</a><a href="marketplace.html">Marketplace</a></div></div></div>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title data-i18n="page_title">Iniciar sesión | Valdes Armas</title><link rel="icon" href="utls/imgs/valdes-armas-logo.jpeg"><link href="utls/css/valdesarmas.css" rel="stylesheet"><link href="utls/css/app.css" rel="stylesheet"></head><body>
+<div class="topbar"><div class="container-va nav"><a class="brand" href="index.html"><img src="utls/imgs/valdes-armas-logo.jpeg" alt="Valdes Armas"><span>VALDES ARMAS<small>LONGEVIDAD PLENA</small></span></a><div class="links"><a href="index.html" data-i18n="nav_home">Inicio</a><a href="marketplace.html" data-i18n="nav_market">Marketplace</a></div><div class="lang-toggle"><span data-lang="es">ES</span><span data-lang="en">EN</span></div></div></div>
 
 <div class="app-shell">
   <div class="auth-card">
-    <h1>Iniciar sesión</h1>
-    <p class="sub">Entrá con tu cuenta para publicar productos o chatear con vendedores.</p>
+    <h1 data-i18n="title">Iniciar sesión</h1>
+    <p class="sub" data-i18n="subtitle">Entrá con tu cuenta para publicar productos o chatear con vendedores.</p>
     <div class="alert alert-error" id="login-error" style="display:none"></div>
     <form id="login-form">
-      <div class="field"><label for="email">Email</label><input type="email" id="email" required></div>
-      <div class="field"><label for="password">Contraseña</label><input type="password" id="password" required></div>
-      <button type="submit" class="app-btn primary block" id="login-btn">Entrar</button>
+      <div class="field"><label for="email" data-i18n="email_label">Email</label><input type="email" id="email" required></div>
+      <div class="field"><label for="password" data-i18n="password_label">Contraseña</label><input type="password" id="password" required></div>
+      <button type="submit" class="app-btn primary block" id="login-btn" data-i18n="submit_btn">Entrar</button>
     </form>
-    <p class="auth-switch">¿No tenés cuenta? <a href="registro.html">Registrate acá</a></p>
+    <p class="auth-switch"><span data-i18n="no_account">¿No tenés cuenta?</span> <a href="registro.html" data-i18n="register_link">Registrate acá</a></p>
   </div>
 </div>
 
+<script>
+window.I18N = {
+  es: {
+    page_title: "Iniciar sesión | Valdes Armas", nav_home: "Inicio", nav_market: "Marketplace",
+    title: "Iniciar sesión", subtitle: "Entrá con tu cuenta para publicar productos o chatear con vendedores.",
+    email_label: "Email", password_label: "Contraseña", submit_btn: "Entrar",
+    no_account: "¿No tenés cuenta?", register_link: "Registrate acá",
+    entering: "Entrando...", bad_credentials: "Email o contraseña incorrectos."
+  },
+  en: {
+    page_title: "Log in | Valdes Armas", nav_home: "Home", nav_market: "Marketplace",
+    title: "Log in", subtitle: "Log in to list products or chat with sellers.",
+    email_label: "Email", password_label: "Password", submit_btn: "Log in",
+    no_account: "Don't have an account?", register_link: "Sign up here",
+    entering: "Logging in...", bad_credentials: "Incorrect email or password."
+  }
+};
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="utls/js/supabase-config.js"></script>
+<script src="utls/js/i18n.js"></script>
 <script>
 document.getElementById('login-form').addEventListener('submit', async (e) => {
   e.preventDefault();
+  const lang = (window.VA_I18N && window.VA_I18N.getLang()) || 'es';
+  const dict = window.I18N[lang];
   const btn = document.getElementById('login-btn');
   const errorBox = document.getElementById('login-error');
   errorBox.style.display = 'none';
-  btn.disabled = true; btn.textContent = 'Entrando...';
+  btn.disabled = true; btn.textContent = dict.entering;
 
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
@@ -31,11 +52,9 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
   const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
   if (error) {
-    errorBox.textContent = error.message === 'Invalid login credentials'
-      ? 'Email o contraseña incorrectos.'
-      : error.message;
+    errorBox.textContent = error.message === 'Invalid login credentials' ? dict.bad_credentials : error.message;
     errorBox.style.display = 'block';
-    btn.disabled = false; btn.textContent = 'Entrar';
+    btn.disabled = false; btn.textContent = dict.submit_btn;
     return;
   }
   window.location.href = 'marketplace.html';

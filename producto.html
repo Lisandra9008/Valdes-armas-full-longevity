@@ -1,0 +1,124 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title id="page-title">Producto | Valdes Armas</title><link rel="icon" href="utls/imgs/valdes-armas-logo.jpeg"><link href="utls/css/valdesarmas.css" rel="stylesheet"><link href="utls/css/app.css" rel="stylesheet"></head><body>
+
+<div class="topbar"><div class="container-va nav"><a class="brand" href="index.html"><img src="utls/imgs/valdes-armas-logo.jpeg" alt="Valdes Armas"><span>VALDES ARMAS<small>LONGEVIDAD PLENA</small></span></a><div class="links"><a href="index.html" data-i18n="nav_home">Inicio</a><a href="marketplace.html" data-i18n="nav_market">Marketplace</a></div><div class="lang-toggle"><span data-lang="es">ES</span><span data-lang="en">EN</span></div></div></div>
+
+<div class="app-shell">
+  <p><a href="marketplace.html" data-i18n="back_link">← Volver al Marketplace</a></p>
+
+  <p class="app-loading" id="loading" data-i18n="loading_text">Cargando producto…</p>
+  <div class="alert alert-error" id="error" style="display:none"></div>
+
+  <div class="product-detail" id="detail" style="display:none">
+    <div class="gallery">
+      <img id="main-img" src="" alt="">
+    </div>
+    <div class="info">
+      <span class="tag" id="cat"></span>
+      <h1 id="nombre"></h1>
+      <p class="price" id="precio"></p>
+      <p id="descripcion" style="color:#4a564c;line-height:1.7"></p>
+      <div class="btns" style="margin-top:20px">
+        <a class="app-btn primary" id="contact-btn" href="#" data-i18n="contact_btn">Consultar por este producto</a>
+      </div>
+      <p class="muted" style="margin-top:24px;font-size:13px"><span data-i18n="posted_by">Publicado por</span> <span id="vendedor"></span></p>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="container-va footer-grid"><div><h2>Valdes Armas</h2><p data-i18n="footer_desc">Centro de Investigación en EcoBienestar para el Adulto Mayor. Naturaleza, ciencia, mascotas y olivos para una vida plena.</p></div><div><p><strong data-i18n="footer_contact_label">Contacto institucional:</strong> info@valdesarmas.org</p><p><strong>© Valdes Armas Longevidad Plena</strong></p></div></div></footer>
+
+<script>
+window.I18N = {
+  es: {
+    nav_home: "Inicio", nav_market: "Marketplace", back_link: "← Volver al Marketplace",
+    loading_text: "Cargando producto…", contact_btn: "Consultar por este producto",
+    posted_by: "Publicado por", price_ask: "Consultar precio", not_found: "No encontramos ese producto.",
+    no_id: "No se especificó qué producto mostrar.",
+    footer_desc: "Centro de Investigación en EcoBienestar para el Adulto Mayor. Naturaleza, ciencia, mascotas y olivos para una vida plena.",
+    footer_contact_label: "Contacto institucional:",
+    cat_aceite: "Aceite de oliva", cat_plantas: "Plantas de olivo", cat_artesanal: "Producto artesanal",
+    cat_experiencias: "Experiencia", cat_publicaciones: "Publicación"
+  },
+  en: {
+    nav_home: "Home", nav_market: "Marketplace", back_link: "← Back to Marketplace",
+    loading_text: "Loading product…", contact_btn: "Ask about this product",
+    posted_by: "Posted by", price_ask: "Ask for price", not_found: "We couldn't find that product.",
+    no_id: "No product was specified.",
+    footer_desc: "Research Center for Eco-Well-being for Older Adults. Nature, science, pets, and olive trees for a fulfilling life.",
+    footer_contact_label: "Institutional contact:",
+    cat_aceite: "Olive oil", cat_plantas: "Olive plants", cat_artesanal: "Artisanal product",
+    cat_experiencias: "Experience", cat_publicaciones: "Publication"
+  }
+};
+
+const CAT_KEYS = { aceite: 'cat_aceite', plantas: 'cat_plantas', artesanal: 'cat_artesanal', experiencias: 'cat_experiencias', publicaciones: 'cat_publicaciones' };
+
+function urlImagen(path) {
+  if (!path) return 'utls/imgs/enConstrucc.PNG';
+  const { data } = supabaseClient.storage.from('productos').getPublicUrl(path);
+  return data.publicUrl;
+}
+
+let PRODUCTO_ACTUAL = null;
+
+function pintarProducto() {
+  if (!PRODUCTO_ACTUAL) return;
+  const producto = PRODUCTO_ACTUAL;
+  const lang = (window.VA_I18N && window.VA_I18N.getLang()) || 'es';
+  const dict = window.I18N[lang];
+
+  document.getElementById('page-title').textContent = producto.nombre + ' | Valdes Armas';
+  document.getElementById('main-img').src = urlImagen(producto.imagenes && producto.imagenes[0]);
+  document.getElementById('main-img').alt = producto.nombre;
+  document.getElementById('cat').textContent = dict[CAT_KEYS[producto.categoria]] || producto.categoria;
+  document.getElementById('nombre').textContent = producto.nombre;
+  document.getElementById('precio').textContent = producto.precio ? ('USD ' + producto.precio) : dict.price_ask;
+  document.getElementById('descripcion').textContent = producto.descripcion || '';
+  document.getElementById('vendedor').textContent = (producto.profiles && producto.profiles.nombre) || 'Valdes Armas';
+  document.getElementById('contact-btn').href =
+    'mailto:info@valdesarmas.org?subject=' + encodeURIComponent('Consulta - ' + producto.nombre) +
+    '&body=' + encodeURIComponent('Hola, quisiera información sobre "' + producto.nombre + '".');
+
+  document.getElementById('detail').style.display = 'grid';
+}
+
+async function cargarProducto() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const loading = document.getElementById('loading');
+  const errorBox = document.getElementById('error');
+  const lang = (window.VA_I18N && window.VA_I18N.getLang()) || 'es';
+  const dict = window.I18N[lang];
+
+  if (!id) {
+    loading.style.display = 'none';
+    errorBox.style.display = 'block';
+    errorBox.textContent = dict.no_id;
+    return;
+  }
+
+  const { data: producto, error } = await supabaseClient
+    .from('products')
+    .select('*, profiles(nombre)')
+    .eq('id', id)
+    .single();
+
+  loading.style.display = 'none';
+
+  if (error || !producto) {
+    errorBox.style.display = 'block';
+    errorBox.textContent = error ? ('Error de Supabase: ' + error.message) : dict.not_found;
+    return;
+  }
+
+  PRODUCTO_ACTUAL = producto;
+  pintarProducto();
+}
+
+document.addEventListener('DOMContentLoaded', cargarProducto);
+document.addEventListener('langchange', pintarProducto);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="utls/js/supabase-config.js"></script>
+<script src="utls/js/i18n.js"></script>
+</body></html>
